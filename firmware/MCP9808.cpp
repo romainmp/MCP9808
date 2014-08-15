@@ -30,6 +30,13 @@ bool MCP9808::begin(){
 
 float MCP9808::getTemperature(){
 	Wire.requestFrom(_i2cAddr, 2);
+	int counter = 0;
+	while(Wire.available()<2){
+		counter++;
+		delay(1);
+		if(counter > 99)
+			return -99.99;
+	}
 	byte msb = Wire.read();
 	byte lsb = Wire.read();
 	float temp;
