@@ -41,9 +41,9 @@ float MCP9808::getTemperature(){
 
 	msb &= 0x1F; // Clear flag bits
 	if ((msb & 0x10) == 0x10) // Ta < 0°C
-		temp = 256.0 - (msb * 16 + lsb / 16);
+		temp = 256.0 - (msb * 16.0 + lsb / 16.0);
 	else // Ta >= 0°C
-		temp = (msb * 16) + (lsb / 16);
+		temp = (msb * 16.0) + (lsb / 16.0);
 	return temp;
 }
 
