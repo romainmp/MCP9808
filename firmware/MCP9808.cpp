@@ -29,31 +29,31 @@ bool MCP9808::begin(){
 }
 
 float MCP9808::getTemperature(){
-	
-	uint16_t t = read16(MCP9808_REG_AMBIENT_TEMP);
-
-	float temp = t & 0x0FFF;
-	temp /=  16.0;
-	if (t & 0x1000) temp -= 256;
-
-	return temp;/*
 	Wire.requestFrom(_i2cAddr, 2);
 	byte msb = Wire.read();
 	byte lsb = Wire.read();
 	float temp;
+
+	Serial.print("MSB: ");
+	Serial.println(msb);
+	Serial.print("LSB: ");
+	Serial.println(lsb);
 
 	/*
 	// Updating flag bits
 	_criticalTemp = ((msb & 0x80) == 0x80);
 	_upperTemp = ((msb & 0x40) == 0x40);
 	_lowerTemp = ((msb & 0x20) == 0x20); 
+	*/
 
 	msb &= 0x1F; // Clear flag bits
-	if ((msb & 0x10) == 0x10) // Ta < 0°C
+	if ((msb & 0x10) == 0x10){ // Ta < 0°C
+		msb &= 0x0F;
 		temp = 256.0 - ((msb * 16.0) + (lsb / 16.0));
-	else // Ta >= 0°C
+	}else{ // Ta >= 0°C
 		temp = (msb * 16.0) + (lsb / 16.0);
-	return temp;*/
+	}
+	return temp;
 }
 
 void MCP9808::setPowerMode(uint16_t mode){
