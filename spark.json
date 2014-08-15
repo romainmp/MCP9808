@@ -1,7 +1,7 @@
 {
     "name": "MCP9808",
     "version": "0.0.1",
-    "author": "Someone <email@somesite.com>",
-    "license": "Choose a license",
-    "description": "Briefly describe this library"
+    "author": "Romain MP <romain.mp@gmail.com>",
+    "license": "GPLv3",
+    "description": "MCP9808 high precision temperature sensor"
 }
