@@ -48,8 +48,8 @@ float MCP9808::getTemperature(){
 	_negativeTemp = (msb & 0x10); 
 	
 	msb &= 0x0F; // Clear flag bits
-	temp += (msb * 16);
-	temp += (lsb / 16.0);
+	temp += float(msb) * 16;
+	temp += float(lsb) / 16;
 	if (_negativeTemp) // Ta < 0°C
 		temp = 256 - temp;
 
