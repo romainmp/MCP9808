@@ -66,10 +66,11 @@ public:
 private:
 	uint8_t _i2cAddr;
 
-	/* Flag bits
+	/* Flag bits */
 	bool _criticalTemp;
 	bool _upperTemp;
-	bool _lowerTemp;*/
+	bool _lowerTemp;
+	bool _negativeTemp;
 
 	uint16_t read16(uint8_t reg);
 };

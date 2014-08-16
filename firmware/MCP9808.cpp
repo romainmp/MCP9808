@@ -39,27 +39,20 @@ float MCP9808::getTemperature(){
 	}
 	byte msb = Wire.read();
 	byte lsb = Wire.read();
-	float temp;
+	float temp = 0.00;
 
-	Serial.print("MSB: ");
-	Serial.println(msb);
-	Serial.print("LSB: ");
-	Serial.println(lsb);
-
-	/*
 	// Updating flag bits
-	_criticalTemp = ((msb & 0x80) == 0x80);
-	_upperTemp = ((msb & 0x40) == 0x40);
-	_lowerTemp = ((msb & 0x20) == 0x20); 
-	*/
+	_criticalTemp = (msb & 0x80);
+	_upperTemp = (msb & 0x40);
+	_lowerTemp = (msb & 0x20);
+	_negativeTemp = (msb & 0x10); 
+	
+	msb &= 0x0F; // Clear flag bits
+	temp += (msb * 16);
+	temp += (lsb / 16.0);
+	if (_negativeTemp) // Ta < 0°C
+		temp = 256 - temp;
 
-	msb &= 0x1F; // Clear flag bits
-	if ((msb & 0x10) == 0x10){ // Ta < 0°C
-		msb &= 0x0F;
-		temp = 256.0 - ((msb * 16.0) + (lsb / 16.0));
-	}else{ // Ta >= 0°C
-		temp = (msb * 16.0) + (lsb / 16.0);
-	}
 	return temp;
 }
 
