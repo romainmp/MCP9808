@@ -38,8 +38,7 @@ float MCP9808::getTemperature(){
 			return -99.99;
 	}
 	byte msb = Wire.read();
-	byte lsb = Wire.read();
-	float temp = 0.00;
+	float t = Wire.read();
 
 	// Updating flag bits
 	_criticalTemp = (msb & 0x80);
@@ -48,12 +47,13 @@ float MCP9808::getTemperature(){
 	_negativeTemp = (msb & 0x10); 
 	
 	msb &= 0x0F; // Clear flag bits
-	temp += float(msb) * 16.0;
-	temp += float(lsb) / 16.0;
-	if (_negativeTemp) // Ta < 0°C
-		temp = 256 - temp;
+	t /= 16.0;
+	t += msb * 16;
 
-	return temp;
+	if (_negativeTemp) // Ta < 0°C
+		t = 256.0 - t;
+
+	return t;
 }
 
 void MCP9808::setPowerMode(uint16_t mode){
