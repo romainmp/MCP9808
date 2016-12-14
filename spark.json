@@ -1,6 +1,6 @@
 {
     "name": "MCP9808",
-    "version": "0.0.12",
+    "version": "0.0.13",
     "author": "Romain MP <romain.mp@gmail.com>",
     "license": "GPLv3",
     "description": "MCP9808 high precision temperature sensor"
