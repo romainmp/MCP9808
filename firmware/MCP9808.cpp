@@ -51,7 +51,7 @@ float MCP9808::getTemperature(){
 	t += msb * 16;
 
 	if (_negativeTemp) // Ta < 0°C
-		t = 256.0 - t;
+		t = -(256.0 - t);
 
 	return t;
 }
