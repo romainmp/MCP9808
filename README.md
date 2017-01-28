@@ -22,6 +22,29 @@ In your loop you can now get the temperature like that
     temperature = mcp.getTemperature();
 ```
 
+## Options
+### Power modes
+The MCP9808 offers a continuous conversion mode or a low-power mode where the sensor only draw 0.1µA.
+The low power mode is also called shutdown mode. Continuous conversion is the default mode.
+You can select either with setPowerMode :
+```C++
+    mcp.setPowerMode(MCP9808_CONTINUOUS);
+```
+or
+```C++
+    mcp.setPowerMode(MCP9808_LOW_POWER);
+```
+
+### Resolution and Speed modes
+If you want to get more frequent temperature readings you'll need to lower the resolution.
+The best resolution is +/-0.0625°C resolution	and takes 250ms of conversion time : MCP9808_SLOWEST
+The fastest conversion time is 30ms and has a resolution of +/- 0.5°C : MCP9808_FASTEST
+MCP9808_SLOWEST / MCP9808_SLOW / MCP9808_FAST / MCP9808_FASTEST
+
+```C++
+    mcp.setResolution(MCP9808_SLOWEST);
+```
+
 ## Contributing
 
 1. Fork it (https://github.com/romainmp/MCP9808/fork)

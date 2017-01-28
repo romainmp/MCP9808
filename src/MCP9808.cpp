@@ -6,10 +6,10 @@ Licence: GPL v3
 
 #include "MCP9808.h"
 
-
 MCP9808::MCP9808(uint8_t addr){
-	// TODO: address value passed should be verified
-	_i2cAddr = addr;
+	// Address can be changed from 0x18 to 0x1F, default is 0x18
+	// Only the least significant bits can be modified with pins A0 to A2
+	_i2cAddr = (MCP9808_DEFAULT_ADDRESS & addr == MCP9808_DEFAULT_ADDRESS) ? addr : MCP9808_DEFAULT_ADDRESS;
 }
 
 bool MCP9808::begin(){
@@ -44,8 +44,8 @@ float MCP9808::getTemperature(){
 	_criticalTemp = (msb & 0x80);
 	_upperTemp = (msb & 0x40);
 	_lowerTemp = (msb & 0x20);
-	_negativeTemp = (msb & 0x10); 
-	
+	_negativeTemp = (msb & 0x10);
+
 	msb &= 0x0F; // Clear flag bits
 
 	float t = (msb * 16) + (lsb / 16.0);
@@ -83,10 +83,10 @@ uint16_t MCP9808::read16(uint8_t reg) {
 	Wire.beginTransmission(_i2cAddr);
 	Wire.write((uint8_t)reg);
 	Wire.endTransmission();
-  
+
 	Wire.requestFrom((uint8_t)_i2cAddr, (uint8_t)2);
 	val = Wire.read();
 	val <<= 8;
-	val |= Wire.read();  
-	return val;  
+	val |= Wire.read();
+	return val;
 }

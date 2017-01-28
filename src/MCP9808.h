@@ -4,18 +4,12 @@ By: Romain MP
 Licence: GPL v3
 */
 
-// Make library cross-compatiable
-// with Arduino, GNU C++ for tests, and Spark.
-//#if defined(ARDUINO) && ARDUINO >= 100
-//#include "Arduino.h"
-//#elif defined(SPARK)
-//#include "application.h"
-//#endif
-
-// TEMPORARY UNTIL the stuff that supports the code above is deployed to the build IDE
 #include "application.h"
 
-#define MCP9808_DEFAULT_ADDRESS			0x18 // MCP9808 address can be changed from 0x18 to 0xF
+#ifndef _MCP9808_H
+#define _MCP9808_H
+
+#define MCP9808_DEFAULT_ADDRESS			0x18 // MCP9808 address can be changed from 0x18 to 0x1F
 
 // MCP9808 Register pointers
 #define MCP9808_REG_CONFIG 				0x01
@@ -40,7 +34,7 @@ Licence: GPL v3
 #define MCP9808_CONFIG_ALERTSEL			0x0002
 #define MCP9808_CONFIG_ALERTPOL			0x0002
 #define MCP9808_CONFIG_ALERTMODE		0x0001
- 
+
 // Power modes
 #define MCP9808_CONTINUOUS				0x0100
 #define MCP9808_LOW_POWER				0x0000
@@ -56,7 +50,7 @@ class MCP9808
 public:
 	// Constructor
 	MCP9808(uint8_t addr = MCP9808_DEFAULT_ADDRESS);
-	
+
 	// Public Functions
 	bool begin();
 	float getTemperature();
@@ -74,3 +68,5 @@ private:
 
 	uint16_t read16(uint8_t reg);
 };
+
+#endif
