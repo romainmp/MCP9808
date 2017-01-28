@@ -4,7 +4,7 @@ A Library to add support of MCP9808 precision temperature sensor to Particle cor
 ## Usage
 Before your setup function
 ```C++
-#include "MCP9808/MCP9808.h"
+#include "MCP9808.h"
 MCP9808 mcp = MCP9808();
 ```
 
