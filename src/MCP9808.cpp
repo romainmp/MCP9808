@@ -9,7 +9,7 @@ Licence: GPL v3
 MCP9808::MCP9808(uint8_t addr){
 	// Address can be changed from 0x18 to 0x1F, default is 0x18
 	// Only the least significant bits can be modified with pins A0 to A2
-	_i2cAddr = (MCP9808_DEFAULT_ADDRESS & addr == MCP9808_DEFAULT_ADDRESS) ? addr : MCP9808_DEFAULT_ADDRESS;
+	_i2cAddr = ((MCP9808_DEFAULT_ADDRESS & addr) == MCP9808_DEFAULT_ADDRESS) ? addr : MCP9808_DEFAULT_ADDRESS;
 }
 
 bool MCP9808::begin(){
